@@ -16,14 +16,15 @@ for i in range(5):
 
     X = torch.tensor(batch[b'data'], dtype=torch.float32)
     Y = torch.tensor(batch[b'labels'], dtype=torch.long)
-
+    
     X_tensor.append(X)
     Y_tensor.append(Y)
+    
 X_tensor = torch.cat(X_tensor, dim=0).view(-1,3,32,32)
 Y_tensor = torch.cat(Y_tensor, dim=0)
 
 batch = unpickle(os.path.join('cifar-10-batches-py', 'test_batch'))
-X_test = torch.tensor(batch[b'data'], dtype=torch.float32)
+X_test = torch.tensor(batch[b'data'], dtype=torch.float32).view(-1,3,32,32)
 Y_test = torch.tensor(batch[b'labels'], dtype=torch.long)
 
 '''
