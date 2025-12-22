@@ -18,14 +18,6 @@ k = 5
 
 for j in range(X_test_flatten.shape[0]):
     lowest = None
-    '''
-    for i,x in zip(range(X_train_flatten.shape[0]), X_train_flatten):
-        dist = torch.sum(torch.abs(x-X_test_flatten[j])).item()
-        if(dist<lowest_L1):
-            lowest_L1 = dist
-            lowest = Y_train[i]
-    if(lowest.item()==Y_test[j].item()): correct_pred+=1
-    '''
     dists = torch.sum(
     torch.abs(X_train_flatten - X_test_flatten[j]),
     dim=1

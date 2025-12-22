@@ -59,7 +59,7 @@ class CIFAR_NN():
 
         for i in range(self.X_test_.size(0)):
             target = Y_test[i]
-            y_pred = torch.argmax(self.model.forward_compute(X_test_[i]))
+            y_pred = torch.argmax(self.model.forward_compute(X_test_[i]), dim=1)
             correct+= (target==y_pred)
 
         acc = correct.item()/X_test_.size(0)*100
