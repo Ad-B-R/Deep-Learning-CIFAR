@@ -1,3 +1,4 @@
 /cifar-10-batches-py/
 *.tar.gz
 __pycache__
+Shakespeare.txt

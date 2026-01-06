@@ -123,7 +123,7 @@ X_test_ = cifar.X_test.to(device)
 
 Y_train = cifar.Y_tensor.to(device)
 Y_test = cifar.Y_test.to(device)
-
+  
 X_epoch = [1,5,10,20,40,67]
 
 CIFAR_model = CNN(device)
