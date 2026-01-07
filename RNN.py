@@ -23,7 +23,7 @@ class RNN(nn.Module):
     
     def forward(self, x: torch.Tensor):
         x = x.permute(0,2,3,1)
-        x = x.reshape(self.batch_size, -1, self.input_size)
+        x = x.reshape(x.size(0), -1, self.input_size)
         h0 = torch.zeros(self.num_layer, x.size(0), 
                         self.hidden_size).to(self.device)
         c0 = torch.zeros(self.num_layer, x.size(0), 
@@ -68,9 +68,12 @@ class CIFARRNN():
         for i in range(self.X_test.size(0)):
             target = self.Y_test[i]
             pred = torch.argmax(self.model.forward(self.X_test[i].unsqueeze(0)), dim = 1)
-            correct += (target==pred)
-        acc = correct/self.X_test.size(0)*100
+            correct += (target==pred).sum()
+        acc = (correct/self.X_test.size(0)*100).item()
+        
         self.accuracy.append(acc)
+
+        print(f"epoches: {epoch}, accuracy: {acc}%")
 
     def epoch_loop(self):
         for epoch in self.epoch_list:
@@ -101,7 +104,7 @@ Y_test = cifar.Y_test.to(device)
 
 X_epoch = [1,5,10,20,25,30,40,45,50]
 
-RNN_model = RNN(96, 128, 2, 100, device)
+RNN_model = RNN(512, 128, 2, 100, device)
 cifar_rnn = CIFARRNN(RNN_model, device, X_tensor, Y_tensor, X_test, Y_test, X_epoch)
 cifar_rnn.epoch_loop()
 cifar_rnn.plot_figure()

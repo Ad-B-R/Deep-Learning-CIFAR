@@ -98,10 +98,12 @@ class CIFARCRNN():
             y_pred = torch.argmax(self.model.forward(
                 self.X_test[i].unsqueeze(0)), dim=1)
             correct += (y_pred==target).sum()
-        acc = correct/self.X_test.size(0)*100
+        acc = (correct/self.X_test.size(0)*100).item()
+        
         self.accuracy.append(acc)
-        print(acc.item())
 
+        print(f"epoches: {epoch}, accuracy: {acc}%")
+        
     def plot_figure(self):
         plt.figure(figsize=(10, 5))          
         plt.plot(self.epoch_list, self.accuracy, marker='o', 

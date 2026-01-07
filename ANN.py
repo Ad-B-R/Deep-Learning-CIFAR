@@ -59,9 +59,9 @@ class CIFAR_NN():
 
         for i in range(self.X_test_.size(0)):
             target = Y_test[i]
-            y_pred = torch.argmax(self.model.forward_compute(X_test_[i]), dim=1)
-            correct+= (target==y_pred)
-
+            y_pred = torch.argmax(self.model.forward_compute(X_test_[i].unsqueeze(0)), dim=1)
+            correct+= (target==y_pred).sum()
+        
         acc = correct.item()/X_test_.size(0)*100
 
         print(f"epoches: {epoch}, accuracy: {acc}%")
