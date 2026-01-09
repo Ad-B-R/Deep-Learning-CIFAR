@@ -104,7 +104,7 @@ Y_test = cifar.Y_test.to(device)
 
 X_epoch = [1,5,10,20,25,30,40,45,50]
 
-RNN_model = RNN(512, 128, 2, 100, device)
+RNN_model = RNN(256, 128, 2, 100, device)
 cifar_rnn = CIFARRNN(RNN_model, device, X_tensor, Y_tensor, X_test, Y_test, X_epoch)
 cifar_rnn.epoch_loop()
 cifar_rnn.plot_figure()
